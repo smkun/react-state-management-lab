@@ -94,9 +94,14 @@ function App() {
 
     // Function to remove a fighter from the team
     const handleRemoveFighter = (fighter) => {
-        const updatedTeam = team.filter((member) => member !== fighter);
-        setTeam(updatedTeam); // Update the team list by filtering out the removed fighter
-        setMoney(money + fighter.price); // Reimburse the fighter's cost to available money
+        const fighterIndex = team.findIndex((member) => member === fighter); // Find the index of the first occurrence of the fighter in the team array
+        if (fighterIndex !== -1) {
+            // Check if the fighter is found in the team array
+            const updatedTeam = [...team]; // Create a new array by spreading the existing team array
+            updatedTeam.splice(fighterIndex, 1); // Remove one element at the fighterIndex position from the updatedTeam array
+            setTeam(updatedTeam); // Update the team state with the updatedTeam array
+            setMoney(money + fighter.price); // Reimburse the fighter's cost to the available money
+        }
     };
 
     // Calculate the total strength of the team
